@@ -1,5 +1,6 @@
 const sections = document.querySelector('.items');
 const cartItems = document.querySelector('.cart__items');
+const emptyCart = document.querySelector('.empty-cart');
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -72,12 +73,19 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
 const getSavedDataCartItems = async () => {
   const data = getSavedCartItems();
   const ol = document.querySelector('ol');
-   console.log(ol.innerHTML = data);
+   ol.innerHTML = data;
    ol.childNodes.forEach((item) => cartItemClickListener(item)); 
 };// map não deu certo, usei forEach :https://stackoverflow.com/questions/34426458/javascript-difference-between-foreach-and-map
-
+emptyCart.addEventListener('click', () => {
+cartItems.innerHTML = '';
+});
+function load() {
+  const e = createCustomElement('li', 'loading', 'carregando...');
+  cartItems.appendChild(e);
+}
 window.onload = async () => {
+  load();
   const data = await fetchProducts('computador');
   await data.map((item) => createProductItemElement(item));
-  getSavedDataCartItems();
+   getSavedDataCartItems();
 };
