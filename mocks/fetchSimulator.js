@@ -1,3 +1,4 @@
+// Esta mocks já foram disponibilizadas pela trybe para uso no projeto
 const item = require('./item');
 const search = require('./search');
 
